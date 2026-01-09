@@ -1,18 +1,12 @@
 function majorityElement(nums: number[]): number {
-    let targetElement = nums[0];
-    let count = 1;
-
-    for (let i = 0; i < nums.length; i++) {
-        if (nums[i] === targetElement) {
-            count++
-        } else {
-            count--
-            if (count === 0) {
-                targetElement = nums[i];
-                count = 1
-            }
-
+    let candidate = 0;
+    let count = 0;
+    for (let x of nums) {
+        if (count === 0) {
+            candidate = x;
         }
+
+        count += (x === candidate) ? 1 : -1
     }
-    return targetElement;
+    return candidate
 };
