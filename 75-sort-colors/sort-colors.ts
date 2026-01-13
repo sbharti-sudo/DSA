@@ -2,21 +2,22 @@
  Do not return anything, modify nums in-place instead.
  */
 function sortColors(nums: number[]): void {
-    let mid = 0
-    let left = 0;
-    let right = nums.length - 1
-    while (mid <= right) {
-        if (nums[mid] === 0) {
-            [nums[left], nums[mid]] = [nums[mid], nums[left]]
-            left++;
-            mid++;
-        } else if (nums[mid] === 1) {
-            mid++
-        }
-        else {
-            [nums[mid], nums[right]] = [nums[right], nums[mid]]
-            right--
-        }
+    let low = 0;
+    let high = nums.length - 1;
+    let mid = 0; 
 
-    }
+    while (mid <= high){
+        if(nums[mid] === 0){
+            [nums[low], nums[mid]] = [nums[mid],nums[low]]
+            low++;
+            mid++
+        }else if(nums[mid] === 1){
+            mid++
+        }else{
+            [nums[mid], nums[high]] = [nums[high], nums[mid]]
+            high--
+
+        }
+    } 
+    
 };
