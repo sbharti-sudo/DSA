@@ -1,15 +1,15 @@
 function twoSum(nums: number[], target: number): number[] {
 
-    const seen: Record<string, number> = {}
+    const seen = new Map<number, number>();// number -> index
 
-    for (let i = 0; nums.length; i++) {
-       let complement = target - nums[i];
+    for (let i = 0; i < nums.length; i++) {
+        let compliment = target - nums[i];
 
-        if (seen[complement] !== undefined) {
-            return [seen[complement], i]
+        if (seen.has(compliment)) {
+            return [seen.get(compliment)!, i]
         }
-        seen[nums[i]] = i
+
+        seen.set(nums[i], i);
     }
     return []
-
-};
+}
