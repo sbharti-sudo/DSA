@@ -1,28 +1,24 @@
 function topKFrequent(nums: number[], k: number): number[] {
-    const freqMap = new Map<number, number>();
+    let frequency: Record<number, number> = {};
+    let n = nums.length;
 
-    // 1) Count frequencies
-    for (let i = 0; i < nums.length; i++) {
-        const x = nums[i];
-        freqMap.set(x, (freqMap.get(x) ?? 0) + 1);
+
+    for (let i = 0; i < n; i++) {
+        frequency[nums[i]] = (frequency[nums[i]] ?? 0) + 1; // { 1: 3, 2: 2, 3: 1 }
     }
 
-    // 2) Bucket array where index = frequency
-    const bucket: number[][] = Array.from({ length: nums.length + 1 }, () => []);
+    let buckets: number[][] = Array.from({ length: n + 1 }, () => []) // index is frequency values will elemst haveing that frequency
 
-    // 3) Put numbers into buckets by frequency
-    for (const [num, freq] of freqMap) {
-        bucket[freq].push(num);
+    for (const [key, values] of Object.entries(frequency)) {
+        buckets[values].push(Number(key)) // js silently converst key into string
     }
-
-    // 4) Collect from highest frequency to lowest until we have k
-    const result: number[] = [];
-    for (let f = bucket.length - 1; f >= 0 && result.length < k; f--) {
-        for (const num of bucket[f]) {
+    let result: number[] = []
+    for (let freq = n; freq >= 1 && result.length < k; freq--) {
+        for (const num of buckets[freq]) {
             result.push(num);
             if (result.length === k) break;
         }
     }
-
     return result;
-}
+
+};
